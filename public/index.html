@@ -10,20 +10,47 @@
       background-color: #fff;
       margin: 0;
       padding: 0;
+      overflow: hidden; /* Prevent scrollbars */
     }
+
+    /* Large text in front */
     #datetime {
-      font-size: 48px;
+      font-size: 80px;
       font-weight: bold;
       text-align: center;
-      margin-top: 20%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      z-index: 2;
     }
-    #datetime-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
+
+    /* Smaller repeating text in the background */
+    #background-text {
+      font-size: 20px;
+      font-weight: bold;
+      position: absolute;
+      top: 10%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.1); /* Light gray, so it's subtle */
+      z-index: 1;
+      pointer-events: none; /* Prevent interference with other elements */
+      animation: repeatText 5s infinite;
     }
+
+    /* CSS Animation to keep background text moving smoothly */
+    @keyframes repeatText {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
     .grey-bar {
       position: fixed;
       top: 0;
@@ -32,25 +59,23 @@
       color: white;
       text-align: center;
       padding: 10px;
+      z-index: 3;
     }
   </style>
 </head>
 <body>
   <div class="grey-bar">Made by CC</div>
-  <div id="datetime-wrapper">
-    <div id="datetime">Loading date...</div>
+
+  <!-- Main large text -->
+  <div id="datetime">MARCH 12 2025 6:30 GMT</div>
+
+  <!-- Background repeating text -->
+  <div id="background-text">
+    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
   </div>
-
-  <script>
-    async function fetchDateTime() {
-      const response = await fetch('/datetime');
-      const data = await response.json();
-      const datetime = data.datetime;
-
-      document.getElementById("datetime").textContent = datetime;
-    }
-
-    fetchDateTime();
-  </script>
 </body>
 </html>
