@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Timer</title>
+  <title>Fixed Date</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,13 +11,13 @@
       margin: 0;
       padding: 0;
     }
-    #timer {
+    #datetime {
       font-size: 48px;
       font-weight: bold;
       text-align: center;
       margin-top: 20%;
     }
-    #timer-wrapper {
+    #datetime-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -37,31 +37,20 @@
 </head>
 <body>
   <div class="grey-bar">Made by CC</div>
-  <div id="timer-wrapper">
-    <div id="timer">Loading timer...</div>
+  <div id="datetime-wrapper">
+    <div id="datetime">Loading date...</div>
   </div>
 
   <script>
-    async function updateTimer() {
-      const response = await fetch('/timer');
+    async function fetchDateTime() {
+      const response = await fetch('/datetime');
       const data = await response.json();
-      const remainingTime = data.remainingTime;
+      const datetime = data.datetime;
 
-      if (remainingTime <= 0) {
-        document.getElementById("timer").textContent = "Timer Ended!";
-      } else {
-        let hours = Math.floor(remainingTime / (1000 * 60 * 60));
-        let minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").textContent = 
-          `${hours}h ${minutes}m ${seconds}s`;
-      }
-
-      setTimeout(updateTimer, 1000);
+      document.getElementById("datetime").textContent = datetime;
     }
 
-    updateTimer();
+    fetchDateTime();
   </script>
 </body>
-</html>l>
+</html>

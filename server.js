@@ -6,17 +6,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// Timer Setup: Global Timer (24 hours)
-let timerStart = Date.now(); // Time when the server started
-let timerEnd = timerStart + 86400000; // 24 hours from server start
-
 // Serve the frontend
 app.use(express.static('public')); // Serve your HTML, JS, CSS
 
-// API endpoint to fetch remaining time
-app.get('/timer', (req, res) => {
-  const remainingTime = timerEnd - Date.now();
-  res.json({ remainingTime });
+// API endpoint to fetch the fixed date and time
+app.get('/datetime', (req, res) => {
+  const fixedDateTime = 'MARCH 12 2025 6:30 GMT';
+  res.json({ datetime: fixedDateTime });
 });
 
 // Start server
