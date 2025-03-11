@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer and Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        #top-bar {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 2em;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #chat-container {
+            margin: 20px;
+        }
+
+        #chat-box {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+
+        #message-input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
+
+        #send-button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+        }
+
+        #join-button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="top-bar">Made by CC</div>
+    <div id="timer">Loading timer...</div>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="message-input" placeholder="Type a message..." />
+        <button id="send-button">Send</button>
+    </div>
+    <button id="join-button" onclick="window.location.href = 'https://yeeps.com';">Join Now</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // Handle timer
+        socket.on('timer', (targetTime) => {
+            const updateTimer = () => {
+                const currentTime = Date.now();
+                const remainingTime = targetTime - currentTime;
+
+                if (remainingTime <= 0) {
+                    document.getElementById('timer').innerText = "Timer Finished! Please wait for the update to push.";
+                } else {
+                    const hours = Math.floor(remainingTime / (1000 * 60 * 60)) % 24;
+                    const minutes = Math.floor(remainingTime / (1000 * 60)) % 60;
+                    const seconds = Math.floor(remainingTime / 1000) % 60;
+                    document.getElementById('timer').innerText = `Time Left: ${hours}h ${minutes}m ${seconds}s`;
+                }
+            };
+
+            setInterval(updateTimer, 1000);
+            updateTimer(); // initial update
+        });
+
+        // Handle chat
+        socket.on('chatMessages', (messages) => {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = '';
+            messages.forEach((message) => {
+                const messageElement = document.createElement('div');
+                messageElement.innerText = `${message.username}: ${message.message}`;
+                chatBox.appendChild(messageElement);
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        // Send new chat message
+        document.getElementById('send-button').addEventListener('click', () => {
+            const message = document.getElementById('message-input').value;
+            if (message) {
+                socket.emit('chatMessage', message);
+                document.getElementById('message-input').value = '';
+            }
+        });
+
+        // Allow pressing Enter to send a message
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('send-button').click();
+            }
+        });
+    </script>
+</body>
+</html>
