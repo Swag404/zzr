@@ -1,66 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Special Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    .background-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 5em;
-      color: rgba(0, 0, 0, 0.1);
-      z-index: -1;
-    }
-
-    .foreground-text {
-      font-size: 3em;
-      color: black;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEX ARK</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="background-text">
-    MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT
-  </div>
-
-  <div class="foreground-text">
-    <script>
-      // Function to check the URL path and modify content accordingly
-      window.onload = function() {
-        var path = window.location.pathname;
-
-        // Check if the URL ends with '/coslink'
-        if (path === '/coslink') {
-          document.querySelector('.foreground-text').innerHTML = 'Congratulations! You found me!';
-        }
-        // Check if the URL ends with '/rules'
-        else if (path === '/rules') {
-          document.querySelector('.foreground-text').innerHTML = 'Hello, welcome to the second page! <br> But I want you to find another link. It starts with seven letters... Give it a try!';
-        }
-        // Default message for other paths
-        else {
-          document.querySelector('.foreground-text').innerHTML = 'Welcome to the page!';
-        }
-      };
-    </script>
-  </div>
+    <div class="grid-overlay"></div>
+    <div class="container">
+        <h1>WEBSITE UPDATE 2025 MARCH 6:59 TODAY</h1>
+    </div>
 </body>
 </html>
