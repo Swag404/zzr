@@ -3,79 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fixed Date</title>
+  <title>Special Page</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #fff;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* Prevent scrollbars */
+      text-align: center;
     }
 
-    /* Large text in front */
-    #datetime {
-      font-size: 80px;
-      font-weight: bold;
-      text-align: center;
+    .background-text {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #000;
-      z-index: 2;
+      font-size: 5em;
+      color: rgba(0, 0, 0, 0.1);
+      z-index: -1;
     }
 
-    /* Smaller repeating text in the background */
-    #background-text {
-      font-size: 20px;
-      font-weight: bold;
-      position: absolute;
-      top: 10%;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      color: rgba(0, 0, 0, 0.1); /* Light gray, so it's subtle */
-      z-index: 1;
-      pointer-events: none; /* Prevent interference with other elements */
-      animation: repeatText 5s infinite;
-    }
-
-    /* CSS Animation to keep background text moving smoothly */
-    @keyframes repeatText {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-
-    .grey-bar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #555;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      z-index: 3;
+    .foreground-text {
+      font-size: 3em;
+      color: black;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="grey-bar">Made by CC</div>
+  <div class="background-text">
+    MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT
+    MARCH 12 2025 6:30 GMT
+  </div>
 
-  <!-- Main large text -->
-  <div id="datetime">MARCH 12 2025 6:30 GMT</div>
+  <div class="foreground-text">
+    <script>
+      // Function to check the URL path and modify content accordingly
+      window.onload = function() {
+        var path = window.location.pathname;
 
-  <!-- Background repeating text -->
-  <div id="background-text">
-    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
-    MARCH 12 2025 6:30 GMT MARCH 12 2025 6:30 GMT
+        // Check if the URL ends with '/coslink'
+        if (path === '/coslink') {
+          document.querySelector('.foreground-text').innerHTML = 'Congratulations! You found me!';
+        }
+        // Check if the URL ends with '/rules'
+        else if (path === '/rules') {
+          document.querySelector('.foreground-text').innerHTML = 'Hello, welcome to the second page! <br> But I want you to find another link. It starts with seven letters... Give it a try!';
+        }
+        // Default message for other paths
+        else {
+          document.querySelector('.foreground-text').innerHTML = 'Welcome to the page!';
+        }
+      };
+    </script>
   </div>
 </body>
 </html>
